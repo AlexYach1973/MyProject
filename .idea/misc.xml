@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/drawable/dashed_lines.xml" value="0.18518518518518517" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/drawable/dashed_lins_insert.xml" value="0.1824074074074074" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/drawable/insert_24.xml" value="0.1824074074074074" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/drawable/rectangle.xml" value="0.39479166666666665" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/drawable/save_buton.xml" value="0.39479166666666665" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/layout/dimension_fragment.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/layout/nav_header.xml" value="0.18" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/layout/schedule_fragment.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/layout/schedule_item.xml" value="0.25" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/layout/setting_fragment.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/menu/menu_drawer.xml" value="0.1" />
+        <entry key="..\:/Android-Studio-Projects/MainAcademy/Project/app/src/main/res/menu/schedule_menu.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.18" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

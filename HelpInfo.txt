@@ -1,0 +1,91 @@
+Если вы хотите установить несколько аварийных сигналов (повторяющихся или одиночных), вам просто нужно создать их PendingIntent с разными requestCode. Если requestCode - то же самое, то новый будильник перезапишет старый.
+
+Вот код для создания нескольких одиночных аварийных сигналов и сохранения их в ArrayList. Я сохраняю PendingIntent в массиве, потому что это то, что вам нужно для отмены будильника.
+
+// context variable contains your `Context`
+AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+
+for(i = 0; i < 10; ++i)
+{
+   Intent intent = new Intent(context, OnAlarmReceiver.class);
+
+   // Loop counter `i` is used as a `requestCode`
+   PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, intent, 0);
+
+   // Single alarms in 1, 2, ..., 10 minutes (in `i` minutes)
+   mgrAlarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 
+                SystemClock.elapsedRealtime() + 60000 * i, 
+                pendingIntent); 
+
+   intentArray.add(pendingIntent);
+}
+
+*************************************************************************************
+        /**
+         * ALARM MANAGER
+         */
+
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
+
+        // Set the alarm to start at approximately 2:00 p.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+
+        Intent intent = new Intent();
+	pendingIntent = ...
+         // С setInexactRepeating() вы должны использовать один из интервалов
+        // AlarmManager константы - в данном случае AlarmManager.INTERVAL_DAY.
+
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
+
+https://russianblogs.com/article/1582268364/
+http://www.mobilab.ru/androiddev/androidalarmmanagertutorial.html
+
+**** Чтение данных времени из таблицы **********
+Или, может быть, вы хотите получить все строки со временем 09:40:
+
+SELECT * FROM table
+WHERE strftime('%H:%M', your_date_column) == '09:40'
+
+Или также:
+
+SELECT * FROM table
+WHERE strftime('%s', your_date_column) < strftime('%s','now')
+************************************
+
+************************************************************************************
+//  Создание базы данных
+USERRoomDatabase db = USERRoomDatabase.getDatabase(Application);
+        mWordDao = db.wordDao();
+        mAllWords = mWordDao.getAlphabetizedWords();
+
+***********************************************************************************
+
+// Create PendingIntent
+
+Intent resultIntent = new Intent(this, MainActivity.class);
+PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
+               PendingIntent.FLAG_UPDATE_CURRENT);
+ 
+// Create Notification
+NotificationCompat.Builder builder =
+       new NotificationCompat.Builder(this)
+               .setSmallIcon(R.mipmap.ic_launcher)
+               .setContentTitle("Title")
+               .setContentText("Notification text")
+		.setAutoCancel(true) // Исчезает уведомлени епосле нажатия
+               .setContentIntent(resultPendingIntent);
+ 
+Notification notification = builder.build();
+ 
+// Show Notification
+NotificationManager notificationManager =
+       (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+notificationManager.notify(1, notification);
+
+

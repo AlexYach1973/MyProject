@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MEDICATION</string>
+
+    // Schedule Fragment
+    <string name="type">Тип</string>
+    <string name="time">Время</string>
+    <string name="amount">Количество</string>
+    <string name="description">Описание</string>
+
+    // menu_drawer
+    <string name="schedule">График уколов</string>
+    <string name="dimension">Измерения сахара в крови</string>
+    <string name="setting">Установки</string>
+    // nav_header
+    <string name="navigation_drawer">Навигация</string>
+
+    // menu Schedule
+    <string name="deleteAll">Удалить все</string>
+    <string name="insert">Вставить</string>
+</resources>
