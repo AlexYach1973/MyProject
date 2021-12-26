@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/menu_restart"
+        android:title="@string/restart"
+        android:icon="@drawable/reload_on" />
+<!--        app:showAsAction="never"/>-->
+
     <item
         android:id="@+id/menu_insert"
         android:title="@string/insert"

@@ -1,7 +1,5 @@
 package com.example.android.myproject.schedule;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,26 +8,25 @@ import com.example.android.myproject.database.ScheduleDao;
 import com.example.android.myproject.database.ScheduleDatabase;
 import com.example.android.myproject.database.ScheduleEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleViewModel extends ViewModel {
 
-    private ScheduleDao scheduleDao;
-
+    private final ScheduleDao scheduleDao;
 
     // Список
     private LiveData<List<ScheduleEntity>> allScheduleEntity = new MutableLiveData<>();
+
     public LiveData<List<ScheduleEntity>> getAllScheduleEntity() {
         return allScheduleEntity;
     }
 
     // Boolean переменная показ/скрыть поля вставки
     private MutableLiveData<Boolean> visibleInsert = new MutableLiveData<>();
+
     public LiveData<Boolean> getVisibleInsert() {
         return visibleInsert;
     }
-
 
     // Коонструктор
     public ScheduleViewModel(ScheduleDao scheduleDao) {
@@ -37,7 +34,7 @@ public class ScheduleViewModel extends ViewModel {
         // Прочитали все
         allScheduleEntity = scheduleDao.getAll();
 
-        // Установили Boolean переменную
+        // Установили Boolean переменные
         visibleInsert.setValue(false);
     }
 
@@ -60,9 +57,7 @@ public class ScheduleViewModel extends ViewModel {
 
     // Удаление всего в фоновом потоке
     public void deleteAll() {
-        ScheduleDatabase.databaseWriteExecutor.execute(() ->
-                scheduleDao.deleteAll());
+        ScheduleDatabase.databaseWriteExecutor.execute(scheduleDao::deleteAll);
     }
-
 
 }

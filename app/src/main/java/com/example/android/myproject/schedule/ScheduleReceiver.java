@@ -48,7 +48,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
         String time = intent.getStringExtra(KEY_TIME);
         String type = intent.getStringExtra(KEY_TYPE);
 
-        Toast.makeText(context, "Время " + time + ", Пора делать укол", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Время " + time + ", Пора делать укол", Toast.LENGTH_SHORT).show();
         Log.d("myLogs", "Время " + time + ", Пора делать укол");
 
         /**
@@ -57,7 +57,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
         // Регистрируем канал уведомлений- это надо для Android 8.0 и выше
          createNotificationChannel(context);
 
-        // Большая картинка - setLargeIcon
+        // Большая картинка - setLargeIcon()
         Bitmap notifyImage = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.injection);
 
@@ -143,7 +143,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
             intent.putExtra(KEY_TIME, hours.get(i) + ":" + minutes.get(i));
             intent.putExtra(KEY_TYPE, type.get(i));
 
-//            Log.d("myLogs", "setAlarm, Time : " + hours.get(i) + ":" + minutes.get(i));
+            Log.d("myLogs", "setAlarm, Time : " + hours.get(i) + ":" + minutes.get(i));
 
             // Разные PendingIntent - pазные requestCode: "i"
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, intent, 0);
@@ -155,7 +155,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
             intentArray.add(pendingIntent);
         }
 
-        Log.d("myLogs", "Размер intentArray: " + intentArray.size());
+        Log.d("myLogs", " setAlarm. Размер intentArray: " + intentArray.size());
 
     }
 
@@ -176,9 +176,10 @@ public class ScheduleReceiver extends BroadcastReceiver {
         } else {
 //            Toast.makeText(context, "Alarm пустой", Toast.LENGTH_LONG).show();
 
-            Log.d("myLogs", "Alarm пустой");
+            Log.d("myLogs", "cancelAlarm. Alarm пустой");
 
         }
+        intentArray.clear(); // Обнулили
     }
 
 

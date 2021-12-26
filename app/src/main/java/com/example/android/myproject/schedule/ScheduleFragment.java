@@ -43,6 +43,9 @@ public class ScheduleFragment extends Fragment {
     // BroadcastReceiver
     ScheduleReceiver receiver;
 
+    // Для изменений кнопок меню
+    Menu menu;
+
 //    public static ScheduleFragment newInstance() {
 //        return new ScheduleFragment();
 //    }
@@ -83,6 +86,8 @@ public class ScheduleFragment extends Fragment {
         // Наблюдаем весь список
         scheduleViewModel.getAllScheduleEntity().observe(getViewLifecycleOwner(), (list) ->
         {
+//            Log.d("myLogs", "getAllScheduleEntity().observe. Заметил изменения");
+
             adapter.submitList(list); // Обновили
 
             // Записали время
@@ -96,16 +101,11 @@ public class ScheduleFragment extends Fragment {
             // Переводим время из String в Integer
             listStringToInteger(timeList);
 
-            // Перезапустить BroadcastReceiver
-                startReceiver();
-
-            // Запустить BroadcastReceiver
-//            receiver.setAlarm(application, timeListHour, timeListMinute);
-
         });
 
         // Наблюдаем за изменением Boolean- переменной видимости полей вставки
         scheduleViewModel.getVisibleInsert().observe(getViewLifecycleOwner(), aBoolean -> {
+
             if (aBoolean) {
                 binding.linearLayoutInsert.setVisibility(View.VISIBLE);
 
@@ -145,6 +145,7 @@ public class ScheduleFragment extends Fragment {
 
     // Функция Записи новых данных
     private void addNewInjection() {
+        // Проверка полей ввода
         if (isEntryValid() && isTimeValid()) {
             // Формируем экземпляр ScheduleEntity
             ScheduleEntity schedule = new ScheduleEntity(
@@ -157,18 +158,14 @@ public class ScheduleFragment extends Fragment {
             // Отправляем в  ViewModel для вставки в БД
             scheduleViewModel.insert(schedule);
 
+            Toast.makeText(application, "Необходимо перезапустить уведомления",
+                    Toast.LENGTH_SHORT).show();
+
             // Очищаем поля вставки
             binding.scheduleInsertType.setText("");
             binding.scheduleInsertTime.setText("");
             binding.scheduleInsertAmount.setText("");
             binding.scheduleInsertDescription.setText("");
-
-            // Перезапустить BroadcastReceiver
-//            startReceiver();
-
-            // Убираем поле вставки
-//            scheduleViewModel.inverseVisiblyInsert();
-
 
         }
     }
@@ -232,6 +229,8 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        // передаём ссылку на наш объект
+        this.menu = menu;
         inflater.inflate(R.menu.schedule_menu, menu);
     }
 
@@ -240,18 +239,24 @@ public class ScheduleFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
+            // Удалить все
+            case R.id.menu_delete_all:
+                scheduleViewModel.deleteAll();
+                // Очистить список pendingIntent
+                receiver.cancelAlarm(application);
+                break;
+
+            // Вставить
             case R.id.menu_insert:
                 scheduleViewModel.inverseVisiblyInsert();
                 // Изменение значка
                 iconSwitch(item);
-
                 break;
 
-            case R.id.menu_delete_all:
-                scheduleViewModel.deleteAll();
-
-                // Очистить pendingIntent
-                receiver.cancelAlarm(application);
+            // Перезапустить Уведомления
+            case R.id.menu_restart:
+                startReceiver();
                 break;
 
             default:
@@ -263,13 +268,17 @@ public class ScheduleFragment extends Fragment {
 
     // Функция изменения значка
     private void iconSwitch(MenuItem item) {
+        // Находим пункт меню RESTART, чтобы отобразить его
+        MenuItem item_restart = menu.findItem(R.id.menu_restart);
 
-        if (scheduleViewModel.getVisibleInsert().getValue())
+        if (scheduleViewModel.getVisibleInsert().getValue()) {
             item.setIcon(R.drawable.insert_true);
-        else
+            item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        } else {
             item.setIcon(R.drawable.insert_24);
+            item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
     }
-
 
 }
 
