@@ -33,6 +33,8 @@ public class ScheduleFragment extends Fragment {
     private Application application;
     // ViewModel
     private ScheduleViewModel scheduleViewModel;
+    // DataBase
+    ScheduleDatabase db;
 
     // Время из списка - Integer
     List<Integer> timeListHour = new ArrayList<>();
@@ -43,17 +45,12 @@ public class ScheduleFragment extends Fragment {
     // BroadcastReceiver
     ScheduleReceiver receiver;
 
-    // Для изменений кнопок меню
+    // Для изменений кнопок меню (из never -> ifRoom)
     Menu menu;
-
-//    public static ScheduleFragment newInstance() {
-//        return new ScheduleFragment();
-//    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // binding
         binding = ScheduleFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
@@ -66,7 +63,7 @@ public class ScheduleFragment extends Fragment {
         // Get Application
         application = requireActivity().getApplication();
         // Get database
-        ScheduleDatabase db = ScheduleDatabase.getDatabase(application);
+        db = ScheduleDatabase.getDatabase(application);
         // Get DAO
         ScheduleDao scheduleDao = db.scheduleDao();
 
@@ -78,10 +75,26 @@ public class ScheduleFragment extends Fragment {
         binding.setViewModel(scheduleViewModel);
 
         RecyclerView recyclerView = binding.recyclerviewSchedule;
+
+        // определяем слушателя нажатия элемента в списке
+        ScheduleAdapter.OnStateClickListener stateClickListener =
+                new ScheduleAdapter.OnStateClickListener() {
+                    @Override
+                    public void onStateClick(ScheduleEntity scheduleEntity, int position) {
+                        Toast.makeText(application, "Был выбран пункт "
+                                        + scheduleEntity.getId(),Toast.LENGTH_SHORT).show();
+                    }
+                };
+
         // Adapter
-        ScheduleAdapter adapter = new ScheduleAdapter(new ScheduleAdapter.ScheduleDiff());
+        ScheduleAdapter adapter = new ScheduleAdapter(new ScheduleAdapter.ScheduleDiff(),
+                stateClickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(application));
+
+        // Щелчки ListView
+
+        /** Наблюдения */
 
         // Наблюдаем весь список
         scheduleViewModel.getAllScheduleEntity().observe(getViewLifecycleOwner(), (list) ->
@@ -92,6 +105,7 @@ public class ScheduleFragment extends Fragment {
 
             // Записали время
             List<String> timeList = new ArrayList<>();
+
             for (ScheduleEntity sch : list) {
                 timeList.add(sch.getTime());
                 // и тип (type) укола
@@ -147,10 +161,15 @@ public class ScheduleFragment extends Fragment {
     private void addNewInjection() {
         // Проверка полей ввода
         if (isEntryValid() && isTimeValid()) {
+
+            // формируем строку Время из часов и минут
+            String strTimeBuild = binding.scheduleInsertTimeHour.getText().toString() +
+                    ":" + binding.scheduleInsertTimeMinute.getText().toString();
+
             // Формируем экземпляр ScheduleEntity
             ScheduleEntity schedule = new ScheduleEntity(
                     binding.scheduleInsertType.getText().toString(),
-                    binding.scheduleInsertTime.getText().toString(),
+                    strTimeBuild,
                     binding.scheduleInsertAmount.getText().toString(),
                     binding.scheduleInsertDescription.getText().toString()
             );
@@ -163,46 +182,45 @@ public class ScheduleFragment extends Fragment {
 
             // Очищаем поля вставки
             binding.scheduleInsertType.setText("");
-            binding.scheduleInsertTime.setText("");
+            binding.scheduleInsertTimeHour.setText("");
+            binding.scheduleInsertTimeMinute.setText("");
             binding.scheduleInsertAmount.setText("");
             binding.scheduleInsertDescription.setText("");
-
         }
     }
 
     // Проверка установки времени: HH:MM
     private boolean isTimeValid() {
-        String strTime = binding.scheduleInsertTime.getText().toString();
+        String strTimeHour = binding.scheduleInsertTimeHour.getText().toString();
+        String strTimeMinute = binding.scheduleInsertTimeMinute.getText().toString();
 
-        if (strTime.indexOf(":") > 0) {
-            if (strTime.substring(0, strTime.indexOf(":")).length() < 1 ||
-                    Integer.parseInt(strTime.substring(0, strTime.indexOf(":"))) < 0 ||
-                    Integer.parseInt(strTime.substring(0, strTime.indexOf(":"))) > 24 ||
-                    strTime.substring(0, strTime.indexOf(":")).length() > 2 ||
+        return (isHourAnfMinuteValid(strTimeHour, 4) &&
+                isHourAnfMinuteValid(strTimeMinute, 10));
+    }
+    // Вспомогательная функция установки времени
+    private boolean isHourAnfMinuteValid(String strTime, int count) {
+        if (strTime.contains(".") || strTime.contains(",") ||
+                strTime.contains("-") || strTime.contains(" ")) {
 
-                    strTime.substring(strTime.indexOf(":") + 1).length() != 2 ||
-                    Integer.parseInt(strTime.substring(strTime.indexOf(":") + 1)) < 0 ||
-                    Integer.parseInt(strTime.substring(strTime.indexOf(":") + 1)) > 60
-            ) {
-                Toast.makeText(application, "Формат времени 'HH:MM' или 'H:MM' ",
-                        Toast.LENGTH_LONG).show();
-
-                return false;
-            } else {
-
-                return true;
-            }
-        } else {
-            Toast.makeText(application, "Формат времени 'HH:MM' или 'H:MM' ",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(application, "В полях должны быть только цифры",
+                    Toast.LENGTH_SHORT).show();
             return false;
+
+        } else if (Integer.parseInt(strTime) < 0 || Integer.parseInt(strTime) > count * 6) {
+
+            Toast.makeText(application, "Неправельные данные",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+
         }
+        return true;
     }
 
-    // Проверка на не нулевые поля Записи новых данных
+    // Проверка на не нулевые поля Записи новых данных (кроме description)
     private Boolean isEntryValid() {
         if (binding.scheduleInsertType.getText().toString().isEmpty() ||
-                binding.scheduleInsertTime.getText().toString().isEmpty() ||
+                binding.scheduleInsertTimeHour.getText().toString().isEmpty() ||
+                binding.scheduleInsertTimeMinute.getText().toString().isEmpty() ||
                 binding.scheduleInsertAmount.getText().toString().isEmpty()
         ) {
             Toast.makeText(application, "Заполните все поля", Toast.LENGTH_SHORT).show();
@@ -212,19 +230,15 @@ public class ScheduleFragment extends Fragment {
         }
     }
 
-    /**
-     * BroadcastReceiver
-     */
+    /** BroadcastReceiver */
     private void startReceiver() {
         receiver.cancelAlarm(application);
 
         receiver.setAlarm(application, timeListHour, timeListMinute, typeList);
     }
 
+    /** Menu */
 
-    /**
-     * Menu
-     */
     // Create menu
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -243,6 +257,10 @@ public class ScheduleFragment extends Fragment {
             // Удалить все
             case R.id.menu_delete_all:
                 scheduleViewModel.deleteAll();
+
+                // Удалить Базу
+//                db.close();
+
                 // Очистить список pendingIntent
                 receiver.cancelAlarm(application);
                 break;

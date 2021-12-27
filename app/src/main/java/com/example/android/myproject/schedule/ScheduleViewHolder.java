@@ -1,6 +1,7 @@
 package com.example.android.myproject.schedule;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +27,6 @@ public class ScheduleViewHolder extends RecyclerView.ViewHolder {
 
         // Выполнить немедленно
         binding.executePendingBindings();
-
     }
 
     static ScheduleViewHolder create(ViewGroup parent) {

@@ -2,9 +2,9 @@
     <string name="app_name">MEDICATION</string>
 
     // Schedule Fragment
-    <string name="type">Тип</string>
+    <string name="type">Тип укола</string>
     <string name="time">Время</string>
-    <string name="amount">Количество</string>
+    <string name="amount">Объем</string>
     <string name="description">Описание</string>
 
     // menu_drawer

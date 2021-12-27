@@ -114,7 +114,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
      */
     // Создаем периодические уведомление по Графику.
     // Этод метод вызывается из ScheduleFragment.
-    // Передаем сюда часы и минуты, уоторые записаны в SQLite- базе
+    // Передаем сюда часы и минуты, которые записаны в SQLite- базе
     // А также тип укола для вывода разных сообщений
     public void setAlarm(Context context, List<Integer> hours, List<Integer> minutes,
                          List<String> type) {

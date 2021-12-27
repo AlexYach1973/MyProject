@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".schedule.ScheduleFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.android.myproject.schedule.ScheduleViewModel" />
@@ -13,52 +13,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/purple_200">
-<!--        tools:context= "com.example.android.myproject.schedule.ScheduleFragment">-->
+        android:background="@color/purple_200"
+        android:orientation="vertical">
+        <!--        tools:context= "com.example.android.myproject.schedule.ScheduleFragment">-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/purple_700"
             android:background="@color/purple_200"
             android:gravity="center"
-            android:text="@string/schedule"/>
+            android:text="@string/schedule"
+            android:textColor="@color/purple_700"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@drawable/separator"
+            android:showDividers="middle"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/schedule"
-                android:text="@string/type"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:text="@string/type" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/schedule"
-                android:text="@string/time"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.27"
+                android:text="@string/time" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/schedule"
-                android:text="@string/amount"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.27"
+                android:text="@string/amount" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 style="@style/schedule"
-                android:text="@string/description"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.23"
+                android:text="@string/description" />
 
         </LinearLayout>
 
@@ -68,44 +70,72 @@
             android:layout_height="wrap_content"
             android:background="@drawable/dashed_lines"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_margin="4dp"
+            android:visibility="visible">
 
 
             <EditText
                 android:id="@+id/schedule_insert_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="short"/>
+                android:layout_weight="1.5"
+                android:inputType="text"
+                android:hint="short" />
 
-            <EditText
-                android:id="@+id/schedule_insert_time"
+            <LinearLayout
+                android:id="@+id/linear_layout_insert_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Формат- 10:00"
-                android:inputType="time" />
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/schedule_insert_time_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="10"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text=":"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/schedule_insert_time_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="00"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/schedule_insert_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_weight="1"
-                android:inputType="number"
-                android:hint="10"/>
+                android:hint="10"
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/schedule_insert_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:inputType="textMultiLine" />
 
             <ImageButton
                 android:id="@+id/button_save_schedule"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/save_buton"
-                android:src="@drawable/insert_true"/>
+                android:src="@drawable/insert_true" />
 
 
         </LinearLayout>
@@ -114,15 +144,10 @@
             android:id="@+id/recyclerview_schedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/schedule_item"/>
-
-
-
-
+            tools:listitem="@layout/schedule_item" />
 
 
     </LinearLayout>
-
 
 
 </layout>

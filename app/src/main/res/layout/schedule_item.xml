@@ -22,39 +22,46 @@
         <TextView
             android:id="@+id/schedule_item_type"
             style="@style/schedule_item"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.23"
+            android:gravity="center"
+            android:padding="4dp"
             android:text="@{scheduleEntity.type}"
             tools:text="short" />
 
         <TextView
             android:id="@+id/schedule_item_time"
             style="@style/schedule_item"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.27"
+            android:gravity="center"
+            android:padding="4dp"
             android:text="@{scheduleEntity.time}"
             tools:text="10:30" />
 
         <TextView
             android:id="@+id/schedule_item_amount"
             style="@style/schedule_item"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.27"
+            android:gravity="center"
+            android:padding="4dp"
             android:text="@{scheduleEntity.amount}"
             tools:text="10 ед." />
 
         <TextView
             android:id="@+id/schedule_item_description"
             style="@style/schedule_item"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.23"
+            android:gravity="center"
+            android:padding="4dp"
             android:text="@{scheduleEntity.description}"
             tools:text="description" />
-
 
     </LinearLayout>
 </layout>
