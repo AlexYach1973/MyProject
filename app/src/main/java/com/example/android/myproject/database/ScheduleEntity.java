@@ -13,12 +13,12 @@ public class ScheduleEntity {
     @ColumnInfo(name = "time")
     private String time;
     @ColumnInfo(name = "amount")
-    private int amount;
+    private String amount;
     @ColumnInfo(name = "description")
     private String description;
 
     // Constructor
-    public ScheduleEntity(String type, String time, int amount, String description) {
+    public ScheduleEntity(String type, String time, String amount, String description) {
         this.type = type;
         this.time = time;
         this.amount = amount;
@@ -34,7 +34,7 @@ public class ScheduleEntity {
         this.time = time;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -58,7 +58,7 @@ public class ScheduleEntity {
         return time;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 

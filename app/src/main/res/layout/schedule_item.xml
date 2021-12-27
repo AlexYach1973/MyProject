@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@{scheduleEntity.type}"
             tools:text="short" />
 
         <TextView
@@ -33,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@{scheduleEntity.time}"
             tools:text="10:30" />
 
         <TextView
@@ -41,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@{scheduleEntity.amount}"
             tools:text="10 ед." />
 
         <TextView
@@ -49,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@{scheduleEntity.description}"
             tools:text="description" />
 
 

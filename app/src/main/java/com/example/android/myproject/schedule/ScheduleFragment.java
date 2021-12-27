@@ -151,7 +151,7 @@ public class ScheduleFragment extends Fragment {
             ScheduleEntity schedule = new ScheduleEntity(
                     binding.scheduleInsertType.getText().toString(),
                     binding.scheduleInsertTime.getText().toString(),
-                    Integer.parseInt(binding.scheduleInsertAmount.getText().toString()),
+                    binding.scheduleInsertAmount.getText().toString(),
                     binding.scheduleInsertDescription.getText().toString()
             );
 

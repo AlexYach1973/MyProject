@@ -17,10 +17,13 @@ public class ScheduleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ScheduleEntity current) {
-        binding.scheduleItemType.setText(current.getType());
-        binding.scheduleItemTime.setText(current.getTime());
-        binding.scheduleItemAmount.setText(String.valueOf(current.getAmount()));
-        binding.scheduleItemDescription.setText(current.getDescription());
+        binding.setScheduleEntity(current);
+
+//        binding.scheduleItemType.setText(current.getType());
+//        binding.scheduleItemTime.setText(current.getTime());
+//        binding.scheduleItemAmount.setText(current.getAmount());
+//        binding.scheduleItemDescription.setText(current.getDescription());
+
         // Выполнить немедленно
         binding.executePendingBindings();
 
