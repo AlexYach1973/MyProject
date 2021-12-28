@@ -58,6 +58,7 @@ public class ScheduleFragment extends Fragment {
         // BroadcastReceiver
         receiver = new ScheduleReceiver();
 
+        // Владелец жизненого цикла
         binding.setLifecycleOwner(this);
 
         // Get Application
@@ -83,7 +84,7 @@ public class ScheduleFragment extends Fragment {
                     public void onStateClick(ScheduleEntity scheduleEntity, int position) {
 
                         Toast.makeText(application, "Был выбран пункт "
-                                        + scheduleEntity.getId(),Toast.LENGTH_SHORT).show();
+                                + scheduleEntity.getId(), Toast.LENGTH_SHORT).show();
 
                     }
                 };
@@ -118,21 +119,30 @@ public class ScheduleFragment extends Fragment {
 
         });
 
-        // Наблюдаем за изменением Boolean- переменной видимости полей вставки
-        /*scheduleViewModel.getVisibleInsert().observe(getViewLifecycleOwner(), aBoolean -> {
+        // Наблюдаем за изменением Boolean- переменной вывода Тостов
+        scheduleViewModel.getToastShow().observe(getViewLifecycleOwner(), (in) -> {
+            switch (in) {
+                case 1:
+                    Toast.makeText(application, "В полях ВРЕМЯ должны быть только цифры",
+                            Toast.LENGTH_SHORT).show();
+                    break;
 
-            if (aBoolean) {
-                binding.linearLayoutInsert.setVisibility(View.VISIBLE);
+                case 2:
+                    Toast.makeText(application, "Неправельные данные",
+                            Toast.LENGTH_SHORT).show();
+                    break;
 
-            } else {
-                binding.linearLayoutInsert.setVisibility(View.GONE);
+                case 3:
+                    Toast.makeText(application, "Заполните все поля",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+
+                default:
+                    break;
             }
-        });*/
 
-        // Кнопка Записи новых данных
-        binding.buttonSaveSchedule.setOnClickListener(v -> {
-            // Запись данных из полей
-            addNewInjection();
+            // Обнулили - Бесконечній цикл
+//            scheduleViewModel.setToastShow(0);
         });
 
 
@@ -145,100 +155,24 @@ public class ScheduleFragment extends Fragment {
     // Переводим время из строк в целые числа для Alarm
     private void listStringToInteger(List<String> timeList) {
         for (String str : timeList) {
+
             timeListHour.add(Integer.parseInt(str.substring(0, str.indexOf(":"))));
-
-//            Log.d("myLogs", " time Hour= " +
-//                    Integer.parseInt(str.substring(0, str.indexOf(":"))));
-
             timeListMinute.add(Integer.parseInt(str.substring(str.indexOf(":") + 1)));
-
-//            Log.d("myLogs", " time Minute= " +
-//                    Integer.parseInt(str.substring(str.indexOf(":")+1)));
-        }
-
-    }
-
-    // Функция Записи новых данных
-    private void addNewInjection() {
-        // Проверка полей ввода
-        if (isEntryValid() && isTimeValid()) {
-
-            // формируем строку Время из часов и минут
-            String strTimeBuild = binding.scheduleInsertTimeHour.getText().toString() +
-                    ":" + binding.scheduleInsertTimeMinute.getText().toString();
-
-            // Формируем экземпляр ScheduleEntity
-            ScheduleEntity schedule = new ScheduleEntity(
-                    binding.scheduleInsertType.getText().toString(),
-                    strTimeBuild,
-                    binding.scheduleInsertAmount.getText().toString(),
-                    binding.scheduleInsertDescription.getText().toString()
-            );
-
-            // Отправляем в  ViewModel для вставки в БД
-            scheduleViewModel.insert(schedule);
-
-            Toast.makeText(application, "Необходимо перезапустить уведомления",
-                    Toast.LENGTH_SHORT).show();
-
-            // Очищаем поля вставки
-            binding.scheduleInsertType.setText("");
-            binding.scheduleInsertTimeHour.setText("");
-            binding.scheduleInsertTimeMinute.setText("");
-            binding.scheduleInsertAmount.setText("");
-            binding.scheduleInsertDescription.setText("");
         }
     }
 
-    // Проверка установки времени: HH:MM
-    private boolean isTimeValid() {
-        String strTimeHour = binding.scheduleInsertTimeHour.getText().toString();
-        String strTimeMinute = binding.scheduleInsertTimeMinute.getText().toString();
-
-        return (isHourAnfMinuteValid(strTimeHour, 4) &&
-                isHourAnfMinuteValid(strTimeMinute, 10));
-    }
-    // Вспомогательная функция установки времени
-    private boolean isHourAnfMinuteValid(String strTime, int count) {
-        if (strTime.contains(".") || strTime.contains(",") ||
-                strTime.contains("-") || strTime.contains(" ")) {
-
-            Toast.makeText(application, "В полях должны быть только цифры",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (Integer.parseInt(strTime) < 0 || Integer.parseInt(strTime) > count * 6) {
-
-            Toast.makeText(application, "Неправельные данные",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-
-        }
-        return true;
-    }
-
-    // Проверка на не нулевые поля Записи новых данных (кроме description)
-    private Boolean isEntryValid() {
-        if (binding.scheduleInsertType.getText().toString().isEmpty() ||
-                binding.scheduleInsertTimeHour.getText().toString().isEmpty() ||
-                binding.scheduleInsertTimeMinute.getText().toString().isEmpty() ||
-                binding.scheduleInsertAmount.getText().toString().isEmpty()
-        ) {
-            Toast.makeText(application, "Заполните все поля", Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /** BroadcastReceiver */
+    /**
+     * BroadcastReceiver
+     */
     private void startReceiver() {
         receiver.cancelAlarm(application);
 
         receiver.setAlarm(application, timeListHour, timeListMinute, typeList);
     }
 
-    /** Menu */
+    /**
+     * Menu
+     */
 
     // Create menu
     @Override

@@ -82,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:inputType="text"
+                android:text="@={viewModel.obsType}"
                 android:hint="short" />
 
             <LinearLayout
@@ -96,6 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="10"
+                    android:text="@={viewModel.timeHour}"
                     android:inputType="number" />
 
                 <TextView
@@ -111,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="00"
+                    android:text="@={viewModel.timeMinute}"
                     android:inputType="number" />
 
             </LinearLayout>
@@ -123,6 +126,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:hint="10"
+                android:text="@={viewModel.amount}"
                 android:inputType="number" />
 
             <EditText
@@ -130,12 +134,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@={viewModel.description}"
                 android:inputType="textMultiLine" />
 
             <ImageButton
                 android:id="@+id/button_save_schedule"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:onClick="@{() -> viewModel.addNewInjection()}"
                 android:background="@drawable/save_buton"
                 android:src="@drawable/insert_true" />
 
@@ -148,8 +154,6 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/schedule_item" />
 
-
     </LinearLayout>
-
 
 </layout>
