@@ -49,7 +49,7 @@
             android:layout_weight="0.27"
             android:gravity="center"
             android:padding="4dp"
-            android:text="@{scheduleEntity.amount}"
+            android:text='@{scheduleEntity.amount + " ед."}'
             tools:text="10 ед." />
 
         <TextView

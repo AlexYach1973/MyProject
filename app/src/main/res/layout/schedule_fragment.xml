@@ -4,6 +4,8 @@
     tools:context=".schedule.ScheduleFragment">
 
     <data>
+<!--        // Import для видимости / невидимости View (c.76)-->
+        <import type="android.view.View"/>
 
         <variable
             name="viewModel"
@@ -71,7 +73,7 @@
             android:background="@drawable/dashed_lines"
             android:orientation="horizontal"
             android:layout_margin="4dp"
-            android:visibility="visible">
+            android:visibility="@{(viewModel.getVisibleInsert()) ? View.VISIBLE : View.GONE}">
 
 
             <EditText

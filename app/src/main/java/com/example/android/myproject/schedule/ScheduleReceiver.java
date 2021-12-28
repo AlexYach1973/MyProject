@@ -70,7 +70,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
         // Создаем уведомление - Builder
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.syringe_w)
+                .setSmallIcon(R.drawable.syringe_r)
                 .setLargeIcon(notifyImage) // Большая картинка
                 .setColor(Color.parseColor("#FFE74C3C"))
                 .setContentTitle("Укол")
@@ -156,6 +156,9 @@ public class ScheduleReceiver extends BroadcastReceiver {
         }
 
         Log.d("myLogs", " setAlarm. Размер intentArray: " + intentArray.size());
+
+        Toast.makeText(context, "Уведомления перезапущены", Toast.LENGTH_SHORT).show();
+
 
     }
 

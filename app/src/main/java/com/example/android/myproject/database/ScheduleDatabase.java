@@ -36,7 +36,7 @@ public abstract class ScheduleDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback mDatabaseCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback mDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);

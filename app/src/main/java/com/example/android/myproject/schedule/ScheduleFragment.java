@@ -76,13 +76,15 @@ public class ScheduleFragment extends Fragment {
 
         RecyclerView recyclerView = binding.recyclerviewSchedule;
 
-        // определяем слушателя нажатия элемента в списке
+        // Определяем слушателя нажатия элемента в списке
         ScheduleAdapter.OnStateClickListener stateClickListener =
                 new ScheduleAdapter.OnStateClickListener() {
                     @Override
                     public void onStateClick(ScheduleEntity scheduleEntity, int position) {
+
                         Toast.makeText(application, "Был выбран пункт "
                                         + scheduleEntity.getId(),Toast.LENGTH_SHORT).show();
+
                     }
                 };
 
@@ -92,7 +94,6 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(application));
 
-        // Щелчки ListView
 
         /** Наблюдения */
 
@@ -118,7 +119,7 @@ public class ScheduleFragment extends Fragment {
         });
 
         // Наблюдаем за изменением Boolean- переменной видимости полей вставки
-        scheduleViewModel.getVisibleInsert().observe(getViewLifecycleOwner(), aBoolean -> {
+        /*scheduleViewModel.getVisibleInsert().observe(getViewLifecycleOwner(), aBoolean -> {
 
             if (aBoolean) {
                 binding.linearLayoutInsert.setVisibility(View.VISIBLE);
@@ -126,7 +127,7 @@ public class ScheduleFragment extends Fragment {
             } else {
                 binding.linearLayoutInsert.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         // Кнопка Записи новых данных
         binding.buttonSaveSchedule.setOnClickListener(v -> {
@@ -267,6 +268,7 @@ public class ScheduleFragment extends Fragment {
 
             // Вставить
             case R.id.menu_insert:
+                // Меняем Boolean- значение
                 scheduleViewModel.inverseVisiblyInsert();
                 // Изменение значка
                 iconSwitch(item);

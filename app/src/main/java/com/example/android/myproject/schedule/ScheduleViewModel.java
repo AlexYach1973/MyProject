@@ -16,14 +16,12 @@ public class ScheduleViewModel extends ViewModel {
 
     // Список
     private LiveData<List<ScheduleEntity>> allScheduleEntity = new MutableLiveData<>();
-
     public LiveData<List<ScheduleEntity>> getAllScheduleEntity() {
         return allScheduleEntity;
     }
 
     // Boolean переменная показ/скрыть поля вставки
     private MutableLiveData<Boolean> visibleInsert = new MutableLiveData<>();
-
     public LiveData<Boolean> getVisibleInsert() {
         return visibleInsert;
     }
