@@ -55,7 +55,7 @@ public class ScheduleFragment extends Fragment {
         binding = ScheduleFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // BroadcastReceiver
+        // Инициализируем BroadcastReceiver
         receiver = new ScheduleReceiver();
 
         // Владелец жизненого цикла
@@ -76,6 +76,8 @@ public class ScheduleFragment extends Fragment {
         binding.setViewModel(scheduleViewModel);
 
         RecyclerView recyclerView = binding.recyclerviewSchedule;
+
+        /** Adapter */
 
         // Определяем слушателя нажатия элемента в списке
         ScheduleAdapter.OnStateClickListener stateClickListener =
@@ -128,7 +130,7 @@ public class ScheduleFragment extends Fragment {
                     break;
 
                 case 2:
-                    Toast.makeText(application, "Неправельные данные",
+                    Toast.makeText(application, "Время указано неправильно",
                             Toast.LENGTH_SHORT).show();
                     break;
 
@@ -141,7 +143,7 @@ public class ScheduleFragment extends Fragment {
                     break;
             }
 
-            // Обнулили - Бесконечній цикл
+            // Обнулили - получили Бесконечній цикл
 //            scheduleViewModel.setToastShow(0);
         });
 

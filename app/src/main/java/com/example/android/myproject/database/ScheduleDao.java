@@ -23,6 +23,8 @@ public interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertInjection(ScheduleEntity scheduleEntity);
 
+
+
     /*// Читать по id
     @Query("SELECT * FROM injection_table WHERE id = :currentId")
     LiveData<ScheduleEntity> getById(int currentId);
@@ -30,7 +32,6 @@ public interface ScheduleDao {
     // Читать по
     @Query("SELECT * FROM injection_table WHERE type = :str" )
     LiveData<ScheduleEntity> getByTime(String str);
-
 
 
     // Обновить 1 элемент

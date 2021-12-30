@@ -63,5 +63,13 @@
             android:text="@{scheduleEntity.description}"
             tools:text="description" />
 
+        <ImageButton
+            android:id="@+id/button_delete"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/delete_item_36"
+            android:background="@drawable/rectangle"
+            android:visibility="gone"/>
+
     </LinearLayout>
 </layout>

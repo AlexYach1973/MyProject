@@ -19,55 +19,45 @@ public class ScheduleViewModel extends ViewModel {
      */
     // Type
     private String obsType = "";
-
     public String getObsType() {
         return obsType;
     }
-
     public void setObsType(String value) {
-        obsType = value;
+            obsType = value;
     }
 
     // TimeHour
     private String timeHour = "";
-
     public String getTimeHour() {
         return timeHour;
     }
-
     public void setTimeHour(String value) {
         timeHour = value;
     }
 
     // TimeMinute
     private String timeMinute = "";
-
     public String getTimeMinute() {
         return timeMinute;
     }
-
     public void setTimeMinute(String value) {
         timeMinute = value;
     }
 
     // Amount
     private String amount = "";
-
     public String getAmount() {
         return amount;
     }
-
     public void setAmount(String value) {
         amount = value;
     }
 
     // Description
     private String description = "";
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String value) {
         description = value;
     }
@@ -108,7 +98,7 @@ public class ScheduleViewModel extends ViewModel {
 //        toastShow.setValue(0);
     }
 
-    // Изменение видимости поля вставки
+    // Изменение Boolean переменной видимости поля вставки
     public void inverseVisiblyInsert() {
 
         if (visibleInsert.getValue() != null) {
@@ -117,20 +107,33 @@ public class ScheduleViewModel extends ViewModel {
             else
                 visibleInsert.setValue(true);
         }
+
+        // Очищаем поля ввода - НЕ работает
+//        clearFieldEnter();
+
+    }
+
+    private void clearFieldEnter() {
+        setObsType("");
+        setTimeHour("");
+        setTimeMinute("");
+        setAmount("");
     }
 
     // Функция Записи новых данных
     public void addNewInjection() {
 
         // Проверка полей при вводе
+        // На нулевые поля
         if (isEntryValid()) {
+            // Часы и минуты
             if (isHourAnfMinuteValid(timeHour, 24) &&
                     isHourAnfMinuteValid(timeMinute, 60) ) {
 
                 // формируем строку Время из часов и минут
                 String strTimeBuild = timeHour + ":" + timeMinute;
 
-                // Формируем экземпляр ScheduleEntity
+                // Формируем новый экземпляр ScheduleEntity
                 ScheduleEntity scheduleEntity =
                         new ScheduleEntity(obsType, strTimeBuild, amount, description);
 
@@ -138,8 +141,9 @@ public class ScheduleViewModel extends ViewModel {
                 insert(scheduleEntity);
             }
         }
-        // Обнуляем поля ввода
-        // ?????
+
+        // Очищаем поля ввода - НЕ работает
+//        clearFieldEnter();
 
     }
 
@@ -162,15 +166,15 @@ public class ScheduleViewModel extends ViewModel {
 
     // Проверка на не нулевые поля Записи новых данных (кроме description)
     private Boolean isEntryValid() {
-        if (obsType.equals("") || timeHour.equals("") || timeMinute.equals("") ||
-                amount.equals("")) {
+        if (getObsType().equals("") || getTimeHour().equals("") || getTimeMinute().equals("") ||
+                getAmount().equals("")) {
 
             // Для вывода Toast
             setToastShow(3);
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     // Вставка в фоновом потоке
@@ -183,5 +187,7 @@ public class ScheduleViewModel extends ViewModel {
     public void deleteAll() {
         ScheduleDatabase.databaseWriteExecutor.execute(scheduleDao::deleteAll);
     }
+
+
 
 }
