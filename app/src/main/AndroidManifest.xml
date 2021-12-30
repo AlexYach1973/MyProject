@@ -5,6 +5,7 @@
 <!--    Для использования точного будильника-->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SET_ALARM"/>
+<!--    <uses-permission android:name="android.permission.QUICKBOOT_POWERON"/>-->
 
     <application
         android:allowBackup="true"
@@ -20,6 +21,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
 

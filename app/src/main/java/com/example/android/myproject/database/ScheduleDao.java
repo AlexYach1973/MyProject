@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -23,23 +24,21 @@ public interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertInjection(ScheduleEntity scheduleEntity);
 
-
-
-    /*// Читать по id
-    @Query("SELECT * FROM injection_table WHERE id = :currentId")
-    LiveData<ScheduleEntity> getById(int currentId);
-
-    // Читать по
-    @Query("SELECT * FROM injection_table WHERE type = :str" )
-    LiveData<ScheduleEntity> getByTime(String str);
-
-
     // Обновить 1 элемент
     @Update
     void updateInjection(ScheduleEntity scheduleEntity);
 
-    // Удалить 1 элемент
-    @Delete
-    void deleteInjection(ScheduleEntity scheduleEntity);*/
+    // Удалить несколько элементов по Id
+    @Query("DELETE from injection_table WHERE id IN (:idList)")
+    void deleteByIdList(List<Integer> idList);
+
+    /*// Читать по id
+    @Query("SELECT * FROM injection_table WHERE id = :currentId")
+    LiveData<ScheduleEntity> getById(long currentId);
+
+    // Читать по
+    @Query("SELECT * FROM injection_table WHERE type = :str" )
+    LiveData<ScheduleEntity> getByTime(String str);*/
+
 
 }

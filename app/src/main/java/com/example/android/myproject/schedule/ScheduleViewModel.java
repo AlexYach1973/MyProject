@@ -8,6 +8,7 @@ import com.example.android.myproject.database.ScheduleDao;
 import com.example.android.myproject.database.ScheduleDatabase;
 import com.example.android.myproject.database.ScheduleEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleViewModel extends ViewModel {
@@ -135,7 +136,8 @@ public class ScheduleViewModel extends ViewModel {
 
                 // Формируем новый экземпляр ScheduleEntity
                 ScheduleEntity scheduleEntity =
-                        new ScheduleEntity(obsType, strTimeBuild, amount, description);
+                        new ScheduleEntity(obsType, strTimeBuild, amount,
+                                description, false);
 
                 // Вставляем в БД
                 insert(scheduleEntity);
@@ -186,6 +188,38 @@ public class ScheduleViewModel extends ViewModel {
     // Удаление всего в фоновом потоке
     public void deleteAll() {
         ScheduleDatabase.databaseWriteExecutor.execute(scheduleDao::deleteAll);
+    }
+
+    // UpDate поля удаления елемента
+    public void upDate(ScheduleEntity scheduleEntity){
+
+        // Меняем Boolean- переменную удаления элемента
+        scheduleEntity.setBooleanValue(!scheduleEntity.getBooleanValue());
+
+        // Обновляем элемент в фоновом потоке
+        ScheduleDatabase.databaseWriteExecutor.execute(() ->
+                scheduleDao.updateInjection(scheduleEntity));
+    }
+
+
+    // Удаление выделенных элементов
+    public void deleteOneElement() {
+        ArrayList<Integer> listId = new ArrayList();
+
+        // Ищем отмеченные элементы
+        if (allScheduleEntity.getValue() != null) {
+            for (ScheduleEntity sch : allScheduleEntity.getValue()) {
+
+                // Собираем Id отмеченных элементов
+                if (sch.getBooleanValue()) {
+                    listId.add(sch.getId());
+                }
+            }
+        }
+
+        // Удаляем выбранные элементы
+        ScheduleDatabase.databaseWriteExecutor.execute(() ->
+                scheduleDao.deleteByIdList(listId));
     }
 
 

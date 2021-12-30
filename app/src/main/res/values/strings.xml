@@ -16,6 +16,7 @@
 
     // menu Schedule
     <string name="deleteAll">Удалить все</string>
+    <string name="deleteOne">Удалить элементы</string>
     <string name="insert">Вставить</string>
     <string name="restart">Перезапустить</string>
 </resources>

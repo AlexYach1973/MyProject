@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+<!--        // Import для видимости / невидимости View (c.74)-->
+        <import type="android.view.View"/>
+
         <variable
             name="scheduleEntity"
             type="com.example.android.myproject.database.ScheduleEntity">
         </variable>
+
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.example.android.myproject.schedule.ScheduleViewModel" />-->
+
     </data>
 
 
@@ -69,7 +77,8 @@
             android:layout_height="36dp"
             android:src="@drawable/delete_item_36"
             android:background="@drawable/rectangle"
-            android:visibility="gone"/>
+            android:visibility="@{scheduleEntity.booleanValue ? View.VISIBLE : View.GONE}"/>
+<!--        android:onClick="@{() -> viewModel.deleteOneElement()}"-->
 
     </LinearLayout>
 </layout>

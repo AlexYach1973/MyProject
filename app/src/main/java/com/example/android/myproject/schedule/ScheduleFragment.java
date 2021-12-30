@@ -88,6 +88,9 @@ public class ScheduleFragment extends Fragment {
                         Toast.makeText(application, "Был выбран пункт "
                                 + scheduleEntity.getId(), Toast.LENGTH_SHORT).show();
 
+                        // Делаем видимой кнопку удаления текущего элемента
+                        scheduleViewModel.upDate(scheduleEntity);
+
                     }
                 };
 
@@ -200,6 +203,11 @@ public class ScheduleFragment extends Fragment {
 
                 // Очистить список pendingIntent
                 receiver.cancelAlarm(application);
+                break;
+
+                // Удалить выбранные эл-ты
+            case R.id.menu_delete_one:
+                scheduleViewModel.deleteOneElement();
                 break;
 
             // Вставить

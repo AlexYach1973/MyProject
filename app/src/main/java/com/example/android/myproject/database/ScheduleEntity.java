@@ -16,15 +16,24 @@ public class ScheduleEntity {
     private String amount;
     @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "booleanValue")
+    private Boolean booleanValue;
 
     // Constructor
-    public ScheduleEntity(String type, String time, String amount, String description) {
+    public ScheduleEntity(String type, String time, String amount,
+                          String description, Boolean booleanValue) {
         this.type = type;
         this.time = time;
         this.amount = amount;
         this.description = description;
+        this.booleanValue = booleanValue;
     }
-
+    public Boolean getBooleanValue() {
+        return booleanValue;
+    }
+    public void setBooleanValue(Boolean booleanValue) {
+        this.booleanValue = booleanValue;
+    }
 
     public void setType(String type) {
         this.type = type;
