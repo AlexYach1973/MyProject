@@ -19,6 +19,7 @@ public class ScheduleAdapter extends ListAdapter<ScheduleEntity, ScheduleViewHol
 
     private final OnStateClickListener onClickListener;
 
+    // Constructor
     protected ScheduleAdapter(@NonNull DiffUtil.ItemCallback<ScheduleEntity> diffCallback,
                               OnStateClickListener onClickListener) {
         super(diffCallback);

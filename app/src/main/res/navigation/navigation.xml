@@ -18,6 +18,6 @@
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.example.android.myproject.schedule.ScheduleFragment"
-        android:label="schedule_fragment"
+        android:label=""
         tools:layout="@layout/schedule_fragment" />
 </navigation>

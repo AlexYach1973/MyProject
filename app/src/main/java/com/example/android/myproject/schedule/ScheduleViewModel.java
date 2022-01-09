@@ -63,9 +63,7 @@ public class ScheduleViewModel extends ViewModel {
         description = value;
     }
 
-    /**
-     * Конец наблюдаемых данных для двусторонней привязки
-     */
+    /** Конец наблюдаемых данных для двусторонней привязки */
 
     // Список
     private LiveData<List<ScheduleEntity>> allScheduleEntity = new MutableLiveData<>();
@@ -114,7 +112,7 @@ public class ScheduleViewModel extends ViewModel {
 
     }
 
-    private void clearFieldEnter() {
+    public void clearFieldEnter() {
         setObsType("");
         setTimeHour("");
         setTimeMinute("");
@@ -146,7 +144,6 @@ public class ScheduleViewModel extends ViewModel {
 
         // Очищаем поля ввода - НЕ работает
 //        clearFieldEnter();
-
     }
 
     // Функция проверки установки времени
@@ -204,7 +201,7 @@ public class ScheduleViewModel extends ViewModel {
 
     // Удаление выделенных элементов
     public void deleteOneElement() {
-        ArrayList<Integer> listId = new ArrayList();
+        List<Integer> listId = new ArrayList();
 
         // Ищем отмеченные элементы
         if (allScheduleEntity.getValue() != null) {
@@ -215,11 +212,20 @@ public class ScheduleViewModel extends ViewModel {
                     listId.add(sch.getId());
                 }
             }
+
+            // Проверка: есть ли выбранные элементы
+            if (listId.isEmpty()) {
+                setToastShow(4);
+                return; // Выходим из функции
+            }
         }
 
         // Удаляем выбранные элементы
         ScheduleDatabase.databaseWriteExecutor.execute(() ->
                 scheduleDao.deleteByIdList(listId));
+
+        // Оповещаем о необходимости перезапустить Оповещения
+        setToastShow(5);
     }
 
 

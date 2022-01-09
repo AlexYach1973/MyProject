@@ -112,7 +112,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
     /**
      * Методы, которые вызываются из ScheduleFragment
      */
-    // Создаем периодические уведомление по Графику.
+    // Создаем периодические напоминания по Графику.
     // Этод метод вызывается из ScheduleFragment.
     // Передаем сюда часы и минуты, которые записаны в SQLite- базе
     // А также тип укола для вывода разных сообщений
@@ -130,7 +130,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
                 System.currentTimeMillis() + 5000,
                 pendingIntent);*/
 
-        // Запускаем серию Уведомлений
+        // Запускаем серию Напоминаний
         for (int i = 0; i < hours.size(); i++) {
 
             Calendar calendar = Calendar.getInstance();
@@ -146,12 +146,13 @@ public class ScheduleReceiver extends BroadcastReceiver {
             Log.d("myLogs", "setAlarm, Time : " + hours.get(i) + ":" + minutes.get(i));
 
             // Разные PendingIntent - pазные requestCode: "i"
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, intent,
+                    0);
             // Запускаем pазные  алярмы
             alarmMng.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     AlarmManager.INTERVAL_DAY, pendingIntent);
 
-            // Собираем уведомления для отмены
+            // Собираем pendingIntent для метода отмены (см. ниже)
             intentArray.add(pendingIntent);
         }
 
@@ -162,7 +163,7 @@ public class ScheduleReceiver extends BroadcastReceiver {
 
     }
 
-    // Отменяем все уведомления
+    // Отменяем все напоминания
     // Этод метод вызывается из ScheduleFragment.
     public void cancelAlarm(Context context) {
 

@@ -32,13 +32,15 @@ public interface ScheduleDao {
     @Query("DELETE from injection_table WHERE id IN (:idList)")
     void deleteByIdList(List<Integer> idList);
 
-    /*// Читать по id
+    /*
+    // Читать по id
     @Query("SELECT * FROM injection_table WHERE id = :currentId")
     LiveData<ScheduleEntity> getById(long currentId);
 
     // Читать по
     @Query("SELECT * FROM injection_table WHERE type = :str" )
-    LiveData<ScheduleEntity> getByTime(String str);*/
+    LiveData<ScheduleEntity> getByTime(String str);
+    */
 
 
 }

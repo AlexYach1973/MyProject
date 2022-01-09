@@ -72,7 +72,7 @@ public class ScheduleFragment extends Fragment {
         scheduleViewModel = new ViewModelProvider(this,
                 new ScheduleViewModelFactory(scheduleDao)).get(ScheduleViewModel.class);
 
-        // Привязка *.XML с ViewModel
+        // Привязка schedule_fragment.XML с ViewModel
         binding.setViewModel(scheduleViewModel);
 
         RecyclerView recyclerView = binding.recyclerviewSchedule;
@@ -85,8 +85,8 @@ public class ScheduleFragment extends Fragment {
                     @Override
                     public void onStateClick(ScheduleEntity scheduleEntity, int position) {
 
-                        Toast.makeText(application, "Был выбран пункт "
-                                + scheduleEntity.getId(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(application, "Был выбран пункт "
+//                                + scheduleEntity.getId(), Toast.LENGTH_SHORT).show();
 
                         // Делаем видимой кнопку удаления текущего элемента
                         scheduleViewModel.upDate(scheduleEntity);
@@ -110,6 +110,10 @@ public class ScheduleFragment extends Fragment {
 
             adapter.submitList(list); // Обновили
 
+            // Проверяем: есть ли у кого то booleanValue- переменная true,
+            // т.е. кого надо удалить?
+            isBooleanValueTrue(list);
+
             // Записали время
             List<String> timeList = new ArrayList<>();
 
@@ -125,8 +129,8 @@ public class ScheduleFragment extends Fragment {
         });
 
         // Наблюдаем за изменением Boolean- переменной вывода Тостов
-        scheduleViewModel.getToastShow().observe(getViewLifecycleOwner(), (in) -> {
-            switch (in) {
+        scheduleViewModel.getToastShow().observe(getViewLifecycleOwner(), (num) -> {
+            switch (num) {
                 case 1:
                     Toast.makeText(application, "В полях ВРЕМЯ должны быть только цифры",
                             Toast.LENGTH_SHORT).show();
@@ -139,6 +143,16 @@ public class ScheduleFragment extends Fragment {
 
                 case 3:
                     Toast.makeText(application, "Заполните все поля",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 4:
+                    Toast.makeText(application, "Нет выбранных элементов",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 5:
+                    Toast.makeText(application, "Не забудьте перезапустить уведомления",
                             Toast.LENGTH_SHORT).show();
                     break;
 
@@ -237,12 +251,39 @@ public class ScheduleFragment extends Fragment {
 
         if (scheduleViewModel.getVisibleInsert().getValue()) {
             item.setIcon(R.drawable.insert_true);
+            // Меняем расположение кнопки "Перезапустить"
             item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         } else {
             item.setIcon(R.drawable.insert_24);
+            // Меняем расположение кнопки "Перезапустить"
             item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         }
     }
+
+    // Ищем записи со boolean-значением true, которые для удаления
+    private void isBooleanValueTrue(List<ScheduleEntity> list){
+
+        // Нашли пункт меню "Удаление элементов"
+        MenuItem item_delete_one = menu.findItem(R.id.menu_delete_one);
+
+        for (ScheduleEntity sch : list) {
+            if (sch.getBooleanValue()) {
+                // Выводим кнопку "Удаление элементов" из меню на панель
+                item_delete_one.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+                // Достаточно одного элемента с sch.getBooleanValue() == true,
+                // выходим из функции
+                return;
+
+            } else {
+                // Прячем кнопку "Удаление элементов" назад в меню
+                item_delete_one.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            }
+
+        }
+    }
+
 
 }
 
