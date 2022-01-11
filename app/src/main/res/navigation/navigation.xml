@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.android.myproject.setting.SettingFragment"
-        android:label="setting_fragment"
+        android:label="Установки"
         tools:layout="@layout/setting_fragment" />
     <fragment
         android:id="@+id/scheduleFragment"

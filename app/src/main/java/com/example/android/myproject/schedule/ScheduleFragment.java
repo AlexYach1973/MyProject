@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -249,15 +250,18 @@ public class ScheduleFragment extends Fragment {
         // Находим пункт меню RESTART, чтобы отобразить его
         MenuItem item_restart = menu.findItem(R.id.menu_restart);
 
-        if (scheduleViewModel.getVisibleInsert().getValue()) {
-            item.setIcon(R.drawable.insert_true);
-            // Меняем расположение кнопки "Перезапустить"
-            item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (scheduleViewModel.getVisibleInsert().getValue() != null) {
 
-        } else {
-            item.setIcon(R.drawable.insert_24);
-            // Меняем расположение кнопки "Перезапустить"
-            item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            if (scheduleViewModel.getVisibleInsert().getValue()) {
+                item.setIcon(R.drawable.insert_true);
+                // Меняем расположение кнопки "Перезапустить"
+                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+            } else {
+                item.setIcon(R.drawable.insert_24);
+                // Меняем расположение кнопки "Перезапустить"
+                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            }
         }
     }
 

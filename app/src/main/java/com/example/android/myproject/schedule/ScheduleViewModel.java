@@ -108,7 +108,7 @@ public class ScheduleViewModel extends ViewModel {
         }
 
         // Очищаем поля ввода - НЕ работает
-//        clearFieldEnter();
+        clearFieldEnter();
 
     }
 

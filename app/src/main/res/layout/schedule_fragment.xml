@@ -83,7 +83,8 @@
                 android:layout_weight="1.5"
                 android:inputType="text"
                 android:text="@={viewModel.obsType}"
-                android:hint="short" />
+                android:hint="@string/hint_type"
+                android:autofillHints="" />
 
             <LinearLayout
                 android:id="@+id/linear_layout_insert_time"
@@ -96,15 +97,16 @@
                     android:id="@+id/schedule_insert_time_hour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="10"
+                    android:hint="@string/hint_time_hour"
                     android:text="@={viewModel.timeHour}"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:autofillHints="" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text=":"
+                    android:text="@string/hint_time"
                     android:textStyle="bold" />
 
 
@@ -112,9 +114,10 @@
                     android:id="@+id/schedule_insert_time_minute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="00"
+                    android:hint="@string/hint_time_minute"
                     android:text="@={viewModel.timeMinute}"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:autofillHints="" />
 
             </LinearLayout>
 
@@ -125,9 +128,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:hint="10"
+                android:hint="@string/hint_volume"
                 android:text="@={viewModel.amount}"
-                android:inputType="number" />
+                android:inputType="number"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/schedule_insert_description"
@@ -135,7 +139,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@={viewModel.description}"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:autofillHints="" />
 
             <ImageButton
                 android:id="@+id/button_save_schedule"
@@ -143,7 +148,7 @@
                 android:layout_height="48dp"
                 android:onClick="@{() -> viewModel.addNewInjection()}"
                 android:background="@drawable/save_buton"
-                android:src="@drawable/insert_true" />
+                android:src="@drawable/insert_true"/>
 
 
         </LinearLayout>

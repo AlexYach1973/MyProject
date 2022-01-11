@@ -13,12 +13,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/purple_200"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+            android:layout_height="wrap_content"
+            style="@style/schedule"
+            android:text="@string/setting_text_notification" />
+
+        <EditText
+            android:id="@+id/setting_text_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/setting_edit_text_notification"
+            android:text="@={viewModel.editTextNotification}"
+            android:inputType="textMultiLine"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/button_test_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/setting_button_test_notofication"/>
+<!--        android:onClick="@{() -> viewModel.buttonTestNotification()}"-->
 
     </LinearLayout>
 

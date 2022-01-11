@@ -7,6 +7,30 @@
     <string name="amount">Объем</string>
     <string name="description">Описание</string>
 
+    // Schedule Fragment, save Button, hint
+    <string name="hint_type">short/long</string>
+    <string name="hint_time_hour">10</string>
+    <string name="hint_time">:</string>
+    <string name="hint_time_minute">30</string>
+    <string name="hint_volume">10</string>
+
+    // menu Schedule
+    <string name="deleteAll">Удалить все</string>
+    <string name="deleteOne">Удалить элементы</string>
+    <string name="insert">Вставить</string>
+    <string name="restart">Перезапустить</string>
+
+
+    // Setting Fragment
+    <string name="setting_text_notification">Введите текст уведомления</string>
+    <string name="setting_edit_text_notification">
+        Например: Алексей, пора вколоть инсулинчик.
+    </string>
+    <string name="setting_button_test_notofication">Тест уведомления</string>
+
+
+
+
     // menu_drawer
     <string name="schedule">График уколов</string>
     <string name="dimension">Измерения сахара в крови</string>
@@ -14,9 +38,6 @@
     // nav_header
     <string name="navigation_drawer">Навигация</string>
 
-    // menu Schedule
-    <string name="deleteAll">Удалить все</string>
-    <string name="deleteOne">Удалить элементы</string>
-    <string name="insert">Вставить</string>
-    <string name="restart">Перезапустить</string>
+
+
 </resources>
