@@ -39,9 +39,9 @@ dependencies {
 
     implementation "androidx.core:core:1.7.0"
 
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // ViewModel
@@ -55,12 +55,15 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.0"
-    annotationProcessor "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-runtime:2.4.1"
+    annotationProcessor "androidx.room:room-compiler:2.4.1"
+
+    // Подключаем библиотеку для графиков
+    implementation 'com.jjoe64:graphview:4.2.2'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     // Test Room
-    testImplementation "androidx.room:room-testing:2.4.0"
+    testImplementation "androidx.room:room-testing:2.4.1"
 }

@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">MEDICATION</string>
 
+    // menu_drawer
+    <string name="schedule">График уколов</string>
+    <string name="dimension">Измерения сахара в крови</string>
+    <string name="setting">Установки</string>
+    // nav_header
+    <string name="navigation_drawer">Навигация</string>
+
+
     // Schedule Fragment
     <string name="type">Тип укола</string>
     <string name="time">Время</string>
@@ -29,14 +37,12 @@
     <string name="setting_button_test_notofication">Тест уведомления</string>
 
 
+    // Dimension Fragment
+    // Button
+    <string name="button_add">Добавить</string>
+    <string name="button_delete">Удалить</string>
 
 
-    // menu_drawer
-    <string name="schedule">График уколов</string>
-    <string name="dimension">Измерения сахара в крови</string>
-    <string name="setting">Установки</string>
-    // nav_header
-    <string name="navigation_drawer">Навигация</string>
 
 
 

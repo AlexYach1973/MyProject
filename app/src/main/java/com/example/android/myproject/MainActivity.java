@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -25,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.navView);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
+        NavController navController =
+                Navigation.findNavController(this, R.id.nav_host_fragment);
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.scheduleFragment, R.id.dimensionFragment, R.id.settingFragment)
+                navController.getGraph())
+//                R.id.scheduleFragment, R.id.dimensionFragment, R.id.settingFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-        NavController navController =
-                Navigation.findNavController(this, R.id.nav_host_fragment);
 
         // Связать Controller Navigation с ActionBar
         NavigationUI.setupActionBarWithNavController(this,

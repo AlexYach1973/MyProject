@@ -47,7 +47,7 @@ public class ScheduleFragment extends Fragment {
     ScheduleReceiver receiver;
 
     // Для изменений кнопок меню (из never -> ifRoom)
-    Menu menu;
+//    Menu menu;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -113,7 +113,7 @@ public class ScheduleFragment extends Fragment {
 
             // Проверяем: есть ли у кого то booleanValue- переменная true,
             // т.е. кого надо удалить?
-            isBooleanValueTrue(list);
+//            isBooleanValueTrue(list);
 
             // Записали время
             List<String> timeList = new ArrayList<>();
@@ -129,7 +129,7 @@ public class ScheduleFragment extends Fragment {
 
         });
 
-        // Наблюдаем за изменением Boolean- переменной вывода Тостов
+        // Наблюдаем за изменением Integer- переменной вывода Тостов
         scheduleViewModel.getToastShow().observe(getViewLifecycleOwner(), (num) -> {
             switch (num) {
                 case 1:
@@ -194,14 +194,21 @@ public class ScheduleFragment extends Fragment {
      * Menu
      */
 
-    // Create menu
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.schedule_menu, menu);
+    }
+
+
+   /* // Create menu
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         // передаём ссылку на наш объект
         this.menu = menu;
         inflater.inflate(R.menu.schedule_menu, menu);
-    }
+    }*/
 
     // Option menu
     @SuppressLint("NonConstantResourceId")
@@ -248,19 +255,19 @@ public class ScheduleFragment extends Fragment {
     // Функция изменения значка
     private void iconSwitch(MenuItem item) {
         // Находим пункт меню RESTART, чтобы отобразить его
-        MenuItem item_restart = menu.findItem(R.id.menu_restart);
+//        MenuItem item_restart = menu.findItem(R.id.menu_restart);
 
         if (scheduleViewModel.getVisibleInsert().getValue() != null) {
 
             if (scheduleViewModel.getVisibleInsert().getValue()) {
                 item.setIcon(R.drawable.insert_true);
                 // Меняем расположение кнопки "Перезапустить"
-                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             } else {
                 item.setIcon(R.drawable.insert_24);
                 // Меняем расположение кнопки "Перезапустить"
-                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
             }
         }
     }
@@ -269,12 +276,12 @@ public class ScheduleFragment extends Fragment {
     private void isBooleanValueTrue(List<ScheduleEntity> list){
 
         // Нашли пункт меню "Удаление элементов"
-        MenuItem item_delete_one = menu.findItem(R.id.menu_delete_one);
+//        MenuItem item_delete_one = menu.findItem(R.id.menu_delete_one);
 
-        for (ScheduleEntity sch : list) {
+        /*for (ScheduleEntity sch : list) {
             if (sch.getBooleanValue()) {
                 // Выводим кнопку "Удаление элементов" из меню на панель
-                item_delete_one.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//                item_delete_one.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
                 // Достаточно одного элемента с sch.getBooleanValue() == true,
                 // выходим из функции
@@ -282,10 +289,10 @@ public class ScheduleFragment extends Fragment {
 
             } else {
                 // Прячем кнопку "Удаление элементов" назад в меню
-                item_delete_one.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//                item_delete_one.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
             }
 
-        }
+        }*/
     }
 
 

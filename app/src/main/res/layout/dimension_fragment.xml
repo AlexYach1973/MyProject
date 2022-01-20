@@ -1,13 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".dimension.DimensionFragment">
 
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.android.myproject.dimension.DimensionViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:orientation="vertical">
 
-</FrameLayout>
+<!--        Две кнопки-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_add_dimen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_add"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/button_delete_dimen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_delete"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                style="?android:attr/buttonBarButtonStyle" />
+
+        </LinearLayout>
+
+<!--        Поля вывода даты и времени-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_view_data_dimen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{viewModel.selectedDate}"
+                android:textSize="20sp"
+                style="@style/schedule"/>
+
+            <TextView
+                android:id="@+id/text_view_time_dimen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                style="@style/schedule"/>
+            <!--                android:text="@{viewModel.selectedHour}"-->
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_dimen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+<!--    Графика-->
+   <!-- <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+       <com.jjoe64.graphview.GraphView
+           android:id="@+id/idGraphView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"/>
+
+    </RelativeLayout>
+
+-->
+
+</layout>

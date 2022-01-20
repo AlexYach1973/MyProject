@@ -79,9 +79,7 @@ public class ScheduleViewModel extends ViewModel {
 
     // Boolean- переменная вывода Тостов из Фрагмента
     private MutableLiveData<Integer> toastShow = new MutableLiveData<>();
-    public LiveData<Integer> getToastShow() {
-        return toastShow;
-    }
+    public LiveData<Integer> getToastShow() { return toastShow; }
     public void setToastShow(int value) {
         toastShow.setValue(value);
     }
