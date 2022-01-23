@@ -3,24 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_insert"
+        android:id="@+id/menu_insert_dimen"
         android:title="@string/insert"
         android:icon="@drawable/insert_24"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/menu_restart"
-        android:title="@string/restart"
-        android:icon="@drawable/reload_on"
+    <item
+        android:id="@+id/menu_delete_dimen"
+        android:title="@string/button_delete"
+        android:icon="@drawable/delete_item_w"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_delete_one"
-        android:title="@string/deleteOne"
-        android:icon="@drawable/delete_item"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/menu_delete_all"
+        android:id="@+id/menu_delete_all_dimen"
         android:title="@string/deleteAll"
         app:showAsAction="never"/>
 

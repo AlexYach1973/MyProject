@@ -1,5 +1,8 @@
 package com.example.android.myproject.schedule;
 
+import static android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
+import static android.view.MenuItem.SHOW_AS_ACTION_NEVER;
+
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Bundle;
@@ -12,16 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myproject.R;
-import com.example.android.myproject.database.ScheduleDao;
-import com.example.android.myproject.database.ScheduleDatabase;
-import com.example.android.myproject.database.ScheduleEntity;
+import com.example.android.myproject.database.*;
+//import com.example.android.myproject.database.ScheduleDatabase;
+//import com.example.android.myproject.database.ScheduleEntity;
 import com.example.android.myproject.databinding.ScheduleFragmentBinding;
 
 import java.util.ArrayList;
@@ -82,17 +84,14 @@ public class ScheduleFragment extends Fragment {
 
         // Определяем слушателя нажатия элемента в списке
         ScheduleAdapter.OnStateClickListener stateClickListener =
-                new ScheduleAdapter.OnStateClickListener() {
-                    @Override
-                    public void onStateClick(ScheduleEntity scheduleEntity, int position) {
+                (scheduleEntity, position) -> {
 
 //                        Toast.makeText(application, "Был выбран пункт "
 //                                + scheduleEntity.getId(), Toast.LENGTH_SHORT).show();
 
-                        // Делаем видимой кнопку удаления текущего элемента
-                        scheduleViewModel.upDate(scheduleEntity);
+                    // Делаем видимой кнопку удаления текущего элемента
+                    scheduleViewModel.upDate(scheduleEntity);
 
-                    }
                 };
 
         // Adapter
@@ -261,11 +260,15 @@ public class ScheduleFragment extends Fragment {
 
             if (scheduleViewModel.getVisibleInsert().getValue()) {
                 item.setIcon(R.drawable.insert_true);
+                item.setShowAsAction(SHOW_AS_ACTION_ALWAYS);
+
                 // Меняем расположение кнопки "Перезапустить"
 //                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             } else {
-                item.setIcon(R.drawable.insert_24);
+                item.setShowAsAction(SHOW_AS_ACTION_NEVER);
+
+//                item.setIcon(R.drawable.insert_24);
                 // Меняем расположение кнопки "Перезапустить"
 //                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
             }
@@ -273,7 +276,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     // Ищем записи со boolean-значением true, которые для удаления
-    private void isBooleanValueTrue(List<ScheduleEntity> list){
+//    private void isBooleanValueTrue(List<ScheduleEntity> list){
 
         // Нашли пункт меню "Удаление элементов"
 //        MenuItem item_delete_one = menu.findItem(R.id.menu_delete_one);
@@ -293,7 +296,7 @@ public class ScheduleFragment extends Fragment {
             }
 
         }*/
-    }
+//    }
 
 
 }

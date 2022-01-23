@@ -20,11 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 public class TimeDialogFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
-    // Определили интерфейс с методом для возврата значений в DimensionFragment
-    public interface OnDateSelection {
-        void onDateSelection(int year, int monthOfYear, int dayOfMonth);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/dimensionFragment"
         android:name="com.example.android.myproject.dimension.DimensionFragment"
-        android:label="dimension_fragment"
+        android:label="Замеры сахара"
         tools:layout="@layout/dimension_fragment" />
     <fragment
         android:id="@+id/settingFragment"
@@ -18,6 +18,6 @@
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.example.android.myproject.schedule.ScheduleFragment"
-        android:label=""
+        android:label="График уколов"
         tools:layout="@layout/schedule_fragment" />
 </navigation>
