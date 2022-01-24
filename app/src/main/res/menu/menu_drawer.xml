@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/scheduleFragment"
-        android:title="@string/schedule"/>
 
     <item
-        android:id="@+id/dimensionFragment"
-        android:title="@string/dimension"/>
+        android:id="@+id/startFragment"
+        android:title="@string/main_page"
+        android:icon="@drawable/house"/>
 
-    <item
-        android:id="@+id/settingFragment"
-        android:title="@string/setting"/>
+    <group>
+
+        <item
+            android:id="@+id/scheduleFragment"
+            android:title="@string/schedule"
+            android:icon="@drawable/shedule"/>
+
+        <item
+            android:id="@+id/dimensionFragment"
+            android:title="@string/dimension"
+            android:icon="@drawable/amount"/>
+
+        <item
+            android:id="@+id/settingFragment"
+            android:title="@string/setting"
+            android:icon="@drawable/tools"/>
+    </group>
+
+
 </menu>

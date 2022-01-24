@@ -14,6 +14,16 @@
         <!-- Customize your theme here. -->
     </style>
 
+<!--    Start Fragment-->
+    <style name="start_fragment">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/start</item>
+<!--        <item name="android:textColor">@color/purple_200</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
 <!--    Schedule Fragment-->
     <style name="schedule">
         <item name="android:textSize">18sp</item>

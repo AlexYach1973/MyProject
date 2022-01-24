@@ -3,21 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/scheduleFragment">
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/dimensionFragment"
         android:name="com.example.android.myproject.dimension.DimensionFragment"
-        android:label="Замеры сахара"
+        android:label="@string/start_dimension"
         tools:layout="@layout/dimension_fragment" />
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.android.myproject.setting.SettingFragment"
-        android:label="Установки"
+        android:label="@string/start_tools"
         tools:layout="@layout/setting_fragment" />
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.example.android.myproject.schedule.ScheduleFragment"
-        android:label="График уколов"
+        android:label="@string/start_schedule"
         tools:layout="@layout/schedule_fragment" />
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.android.myproject.StartFragment"
+        android:label="@string/start_text"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_startFragment_to_dimensionFragment"
+            app:destination="@id/dimensionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_startFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
 </navigation>

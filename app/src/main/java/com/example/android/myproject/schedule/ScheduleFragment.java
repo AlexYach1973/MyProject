@@ -22,8 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myproject.R;
 import com.example.android.myproject.database.*;
-//import com.example.android.myproject.database.ScheduleDatabase;
-//import com.example.android.myproject.database.ScheduleEntity;
 import com.example.android.myproject.databinding.ScheduleFragmentBinding;
 
 import java.util.ArrayList;

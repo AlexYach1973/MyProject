@@ -2,12 +2,19 @@
     <string name="app_name">MEDICATION</string>
 
     // menu_drawer
+    <string name="main_page">Главная страница</string>
     <string name="schedule">График уколов</string>
     <string name="dimension">Измерения сахара в крови</string>
     <string name="setting">Установки</string>
     // nav_header
     <string name="navigation_drawer">Навигация</string>
 
+
+    // Start FragmentStart
+    <string name="start_text">ИНСУЛИНОВЫЙ ПОМОШНИК</string>
+    <string name="start_schedule">ГРАФИК УКОЛОВ</string>
+    <string name="start_dimension">ИЗМЕРЕНИЯ САХАРА</string>
+    <string name="start_tools">УСТАНОВКИ</string>
 
     // Schedule Fragment
     <string name="type">Тип укола</string>
@@ -41,9 +48,6 @@
     // Button
     <string name="button_add">Добавить</string>
     <string name="button_delete">Удалить</string>
-
-
-
 
 
 </resources>
