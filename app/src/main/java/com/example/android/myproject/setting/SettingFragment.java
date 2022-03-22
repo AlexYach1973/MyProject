@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android.myproject.databinding.SettingFragmentBinding;
-import com.example.android.myproject.schedule.ScheduleReceiver;
+import com.example.android.myproject.receiver.ScheduleReceiver;
 
 public class SettingFragment extends Fragment {
 

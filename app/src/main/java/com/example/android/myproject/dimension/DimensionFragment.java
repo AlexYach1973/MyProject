@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,12 +47,6 @@ public class DimensionFragment extends Fragment {
 
     // Id выбраного элемента
 //    long currentId = 0;
-
-
-//    public static DimensionFragment newInstance() {
-//        return new DimensionFragment();
-//    }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -197,7 +190,7 @@ public class DimensionFragment extends Fragment {
             // Устанавливаем кликабельность кнопки
             binding.buttonDeleteDimen.setClickable(bool);
 
-            Log.d("myLogs", "getVisibleDelete().observe = " + bool);
+//            Log.d("myLogs", "getVisibleDelete().observe = " + bool);
 
             // Устанавливаем текст кнопки
             if (!bool) {
@@ -340,7 +333,7 @@ public class DimensionFragment extends Fragment {
         }
     }
 
-    // Меняем располодение иконки
+    // Меняем расположение иконки
     private  void iconSwitchAdd(MenuItem item) {
         if (dimensionViewModel.getVisibleAdd().getValue() != null) {
 

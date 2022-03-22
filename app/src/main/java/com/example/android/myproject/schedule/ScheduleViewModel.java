@@ -105,7 +105,7 @@ public class ScheduleViewModel extends ViewModel {
                 visibleInsert.setValue(true);
         }
 
-        // Очищаем поля ввода - НЕ работает
+        // Очищаем поля ввода - сразу НЕ работает
         clearFieldEnter();
 
     }
@@ -178,6 +178,9 @@ public class ScheduleViewModel extends ViewModel {
     public void insert(ScheduleEntity scheduleEntity) {
         ScheduleDatabase.databaseWriteExecutor.execute(() ->
                 scheduleDao.insertInjection(scheduleEntity));
+
+        // Оповещаем о необходимости перезапустить Оповещения
+        setToastShow(5);
     }
 
     // Удаление всего в фоновом потоке
@@ -199,7 +202,7 @@ public class ScheduleViewModel extends ViewModel {
 
     // Удаление выделенных элементов
     public void deleteOneElement() {
-        List<Integer> listId = new ArrayList();
+        List<Integer> listId = new ArrayList<>();
 
         // Ищем отмеченные элементы
         if (allScheduleEntity.getValue() != null) {

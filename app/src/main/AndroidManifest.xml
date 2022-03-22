@@ -9,14 +9,13 @@
 
     <application
         android:allowBackup="true"
-        android:fullBackupContent="true"
         android:icon="@mipmap/medic"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProject">
 
         <receiver
-            android:name=".schedule.ScheduleReceiver"
+            android:name=".receiver.ScheduleReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

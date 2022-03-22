@@ -4,7 +4,10 @@ import static android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
 import static android.view.MenuItem.SHOW_AS_ACTION_NEVER;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Application;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,16 +18,22 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.myproject.R;
-import com.example.android.myproject.database.*;
+import com.example.android.myproject.database.ScheduleDao;
+import com.example.android.myproject.database.ScheduleDatabase;
+import com.example.android.myproject.database.ScheduleEntity;
 import com.example.android.myproject.databinding.ScheduleFragmentBinding;
+import com.example.android.myproject.receiver.ScheduleReceiver;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ScheduleFragment extends Fragment {
@@ -36,6 +45,9 @@ public class ScheduleFragment extends Fragment {
     private ScheduleViewModel scheduleViewModel;
     // DataBase
     ScheduleDatabase db;
+
+    // AlarmManager
+    AlarmManager alarmMng;
 
     // Время из списка - Integer
     List<Integer> timeListHour = new ArrayList<>();
@@ -49,6 +61,8 @@ public class ScheduleFragment extends Fragment {
     // Для изменений кнопок меню (из never -> ifRoom)
 //    Menu menu;
 
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +72,7 @@ public class ScheduleFragment extends Fragment {
 
         // Инициализируем BroadcastReceiver
         receiver = new ScheduleReceiver();
+
 
         // Владелец жизненого цикла
         binding.setLifecycleOwner(this);
@@ -69,17 +84,21 @@ public class ScheduleFragment extends Fragment {
         // Get DAO
         ScheduleDao scheduleDao = db.scheduleDao();
 
+        // Инициализируем AlarmManager
+        alarmMng = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
+
         // initialize ViewModel через ViewModelFactory
         scheduleViewModel = new ViewModelProvider(this,
-                new ScheduleViewModelFactory(scheduleDao)).get(ScheduleViewModel.class);
+                (ViewModelProvider.Factory)
+                        new ScheduleViewModelFactory(scheduleDao))
+                .get(ScheduleViewModel.class);
 
         // Привязка schedule_fragment.XML с ViewModel
         binding.setViewModel(scheduleViewModel);
 
         RecyclerView recyclerView = binding.recyclerviewSchedule;
 
-        /** Adapter */
-
+        /** Слушатели */
         // Определяем слушателя нажатия элемента в списке
         ScheduleAdapter.OnStateClickListener stateClickListener =
                 (scheduleEntity, position) -> {
@@ -92,7 +111,7 @@ public class ScheduleFragment extends Fragment {
 
                 };
 
-        // Adapter
+        /** Adapter */
         ScheduleAdapter adapter = new ScheduleAdapter(new ScheduleAdapter.ScheduleDiff(),
                 stateClickListener);
         recyclerView.setAdapter(adapter);
@@ -104,17 +123,28 @@ public class ScheduleFragment extends Fragment {
         // Наблюдаем весь список
         scheduleViewModel.getAllScheduleEntity().observe(getViewLifecycleOwner(), (list) ->
         {
-//            Log.d("myLogs", "getAllScheduleEntity().observe. Заметил изменения");
+            // Сортировка по времени через Collections
+            Collections.sort(list, Comparator.comparing(ScheduleEntity::getTime));
+            // Обновляем
+            adapter.submitList(list);
 
-            adapter.submitList(list); // Обновили
+            // Обновили с сортировкой по времени через стримы- тоже работает
+           /* adapter.submitList(list.stream().sorted((x, y) ->
+                    x.getTime().compareTo(y.getTime())
+                    ).collect(Collectors.toList()));*/
+
 
             // Проверяем: есть ли у кого то booleanValue- переменная true,
             // т.е. кого надо удалить?
 //            isBooleanValueTrue(list);
 
-            // Записали время
+
             List<String> timeList = new ArrayList<>();
 
+            // Обнулили лист типа укола
+            typeList.clear();
+
+            // Записали время
             for (ScheduleEntity sch : list) {
                 timeList.add(sch.getTime());
                 // и тип (type) укола
@@ -171,8 +201,12 @@ public class ScheduleFragment extends Fragment {
 
     // Переводим время из строк в целые числа для Alarm
     private void listStringToInteger(List<String> timeList) {
-        for (String str : timeList) {
 
+        // Обнулили листы
+        timeListHour.clear();
+        timeListMinute.clear();
+
+        for (String str : timeList) {
             timeListHour.add(Integer.parseInt(str.substring(0, str.indexOf(":"))));
             timeListMinute.add(Integer.parseInt(str.substring(str.indexOf(":") + 1)));
         }
@@ -182,9 +216,12 @@ public class ScheduleFragment extends Fragment {
      * BroadcastReceiver
      */
     private void startReceiver() {
-        receiver.cancelAlarm(application);
 
-        receiver.setAlarm(application, timeListHour, timeListMinute, typeList);
+        receiver.cancelAlarm(alarmMng, application);
+        receiver.setAlarm(alarmMng, application, timeListHour, timeListMinute, typeList);
+        /*// Old
+        receiver.cancelAlarm(application);
+        receiver.setAlarm(application, timeListHour, timeListMinute, typeList);*/
     }
 
     /**
@@ -221,10 +258,10 @@ public class ScheduleFragment extends Fragment {
 //                db.close();
 
                 // Очистить список pendingIntent
-                receiver.cancelAlarm(application);
+                receiver.cancelAlarm(alarmMng, application);
                 break;
 
-                // Удалить выбранные эл-ты
+            // Удалить выбранные эл-ты
             case R.id.menu_delete_one:
                 scheduleViewModel.deleteOneElement();
                 break;
@@ -260,6 +297,13 @@ public class ScheduleFragment extends Fragment {
                 item.setIcon(R.drawable.insert_true);
                 item.setShowAsAction(SHOW_AS_ACTION_ALWAYS);
 
+                // Заодно очищаем поля вставки
+                binding.scheduleInsertType.setText("");
+                binding.scheduleInsertTimeHour.setText("");
+                binding.scheduleInsertTimeMinute.setText("");
+                binding.scheduleInsertAmount.setText("");
+                binding.scheduleInsertDescription.setText("");
+
                 // Меняем расположение кнопки "Перезапустить"
 //                item_restart.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
@@ -276,7 +320,7 @@ public class ScheduleFragment extends Fragment {
     // Ищем записи со boolean-значением true, которые для удаления
 //    private void isBooleanValueTrue(List<ScheduleEntity> list){
 
-        // Нашли пункт меню "Удаление элементов"
+    // Нашли пункт меню "Удаление элементов"
 //        MenuItem item_delete_one = menu.findItem(R.id.menu_delete_one);
 
         /*for (ScheduleEntity sch : list) {
